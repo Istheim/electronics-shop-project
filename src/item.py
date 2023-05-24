@@ -19,7 +19,7 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        self.all.append(self)
+        Item.all.append(self)
 
     @property
     def name(self):
@@ -31,20 +31,20 @@ class Item:
         return self.__name
 
     @name.setter
-    def name(self, item_name):
-        """
-        Сеттер для установки значения приватного атрибута name."""
-        if len(item_name) > 10:
-            raise ValueError("Длина наименования товара превышает 10 символов.")
-        self.__name = item_name
+    def name(self, item_name: str):
+        if len(item_name) <= 10:
+            self.__name = item_name
+
+        else:
+            raise Exception('Длина наименования товара превышает 10 символов')
 
     @classmethod
     def instantiate_from_csv(cls):
         """
         Класс-метод для инициализации экземпляров класса Item данными из файла src/items.csv.
         """
-        cls.all.clear()
-        with open('/Users/matvejzajcev/Documents/electronics-shop-project/src/items.csv', newline='') as csvfile:
+        with open('/Users/matvejzajcev/Documents/electronics-shop-project/src/items.csv',
+                  newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 item = cls(row['name'], row['price'], row['quantity'])
