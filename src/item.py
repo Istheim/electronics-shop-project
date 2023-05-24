@@ -1,3 +1,6 @@
+import csv
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -7,16 +10,55 @@ class Item:
 
     def __init__(self, name: str, price: float, quantity: int):
         """
-        Создание экземпляра класса item.
+        Создание экземпляра класса Item.
 
         :param name: Название товара.
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+
+    @property
+    def name(self):
+        """
+        Геттер для получения значения приватного атрибута name.
+
+        :return: Название товара.
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, item_name):
+        """
+        Сеттер для установки значения приватного атрибута name."""
+        if len(item_name) > 10:
+            raise ValueError("Длина наименования товара превышает 10 символов.")
+        self.__name = item_name
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        Класс-метод для инициализации экземпляров класса Item данными из файла src/items.csv.
+        """
+        cls.all.clear()
+        with open('/Users/matvejzajcev/Documents/electronics-shop-project/src/items.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                item = cls(row['name'], row['price'], row['quantity'])
+                cls.all.append(item)
+
+    @staticmethod
+    def string_to_number(string):
+        """
+        Статический метод для преобразования числа-строки в число.
+
+        :param string: Число-строка.
+        :return: Преобразованное число.
+        """
+        return int(float(string))
 
     def calculate_total_price(self):
         """
