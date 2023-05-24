@@ -34,7 +34,6 @@ class Item:
     def name(self, item_name: str):
         if len(item_name) <= 10:
             self.__name = item_name
-
         else:
             raise Exception('Длина наименования товара превышает 10 символов')
 
@@ -49,7 +48,6 @@ class Item:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 item = cls(row['name'], row['price'], row['quantity'])
-                cls.all.append(item)
 
     @staticmethod
     def string_to_number(string):
