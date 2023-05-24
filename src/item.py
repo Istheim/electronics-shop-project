@@ -43,6 +43,7 @@ class Item:
         """
         Класс-метод для инициализации экземпляров класса Item данными из файла src/items.csv.
         """
+        cls.all.clear()
         with open('/Users/matvejzajcev/Documents/electronics-shop-project/src/items.csv',
                   newline='') as csvfile:
             reader = csv.DictReader(csvfile)
