@@ -1,4 +1,5 @@
 import csv
+import os
 
 
 class Item:
@@ -43,8 +44,9 @@ class Item:
         Класс-метод для инициализации экземпляров класса Item данными из файла src/items.csv.
         """
         cls.all.clear()
-        with open('/Users/matvejzajcev/Documents/electronics-shop-project/src/items.csv',
-                  newline='') as csvfile:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(current_dir, 'items.csv')
+        with open(file_path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 item = cls(row['name'], row['price'], row['quantity'])
