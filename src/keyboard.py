@@ -1,8 +1,8 @@
 from src.item import Item
 
 
-class Lang_change_Mixin:
-    """класс `Keyboard` для товара “клавиатура”"""
+class LangChangeMixin:
+    """Класс 'Keyboard' для товара "клавиатура"."""
 
     def __init__(self):
         pass
@@ -14,21 +14,17 @@ class Lang_change_Mixin:
         return self.__LANGUAGE
 
     def change_lang(self):
-        # метод изменения языка
-
+        """Метод изменения языка."""
         if self.__LANGUAGE == "EN":
             self.__LANGUAGE = "RU"
-            return self
-
         else:
             self.__LANGUAGE = "EN"
-            return self
+        return self
 
 
-class KeyBoard(Lang_change_Mixin, Item):
+class Keyboard(LangChangeMixin, Item):
     def __init__(self, name, price, quantity):
         super().__init__(name, price, quantity)
 
     def __repr__(self):
-        return f"{self.__class__.__name__}('{self.name}', {self.price}" \
-               f", {self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"

@@ -1,3 +1,8 @@
+from src.keyboard import Keyboard
+import os
+import pytest
+
+
 def test():
     # Создаем экземпляр класса для проверки
     kb = KeyBoard('DarkKD87A', 9600, 5)
