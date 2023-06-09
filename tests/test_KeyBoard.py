@@ -1,4 +1,4 @@
-from src.keyboard import Keyboard
+from src.keyboard import KeyBoard
 import os
 import pytest
 

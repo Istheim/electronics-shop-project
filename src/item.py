@@ -22,6 +22,12 @@ class Item:
         self.quantity = quantity
         Item.all.append(self)
 
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            raise ValueError('Нельзя складывать')
+        return int(self.quantity) + int(other.quantity)
+
+
     @property
     def name(self):
         """
