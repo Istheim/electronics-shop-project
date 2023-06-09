@@ -19,5 +19,5 @@ def test():
 
     # Проверяем ошибку на язык, только EN & RU
     with pytest.raises(AttributeError):
-        kb.language = 'CH'
+       kb.language = 'CH'
     # AttributeError: property 'language' of 'KeyBoard' object has no setter
