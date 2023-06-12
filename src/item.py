@@ -49,13 +49,38 @@ class Item:
         """
         Класс-метод для инициализации экземпляров класса Item данными из файла src/items.csv.
         """
-        cls.all.clear()
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_dir, 'items.csv')
-        with open(file_path, newline='', encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                item = cls(row['name'], row['price'], row['quantity'])
+        try:
+            cls.all.clear()
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            file_path = os.path.join(current_dir, 'items.csv')
+            with open(file_path, newline='', encoding="utf-8") as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    item = cls(row['name'], row['price'], row['quantity'])
+
+                    if not row['name'] or not row['price'] or not row['quantity']:
+                        raise InstantiateCSVError
+            # Обработка ошибки файл не найден
+        except FileNotFoundError:
+            raise CSVNotFoundError
+        # Обработка ошибки файл поврежден
+        except KeyError:
+            raise InstantiateCSVError
+
+    @classmethod
+    def instantiate_from_csv(cls) -> None:
+
+        '''
+        класс-метод, инициализирующий экземпляры класса `Item`
+        данными из файла _src/items.csv
+        '''
+        address_file = '../src/items.csv'
+        try:
+            cls.instantiate_csv(address_file)
+        except CSVNotFoundError as ex:
+            print(ex.message)
+        except InstantiateCSVError as ex:
+            print(ex.message)
 
     @staticmethod
     def string_to_number(string):

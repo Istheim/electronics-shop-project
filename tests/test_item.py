@@ -66,3 +66,13 @@ def test_invalid_addition():
         item1 + other_obj
     except ValueError as e:
         assert str(e) == "Нельзя сложить Phone или Item с экземплярами других классов."
+
+
+def test_instantiate_from_csv():
+    # Проверка ошибок
+    # Тест ошибки "Нет файла"
+    with pytest.raises(CSVNotFoundError):
+        Item.instantiate_csv('../src/items2.csv')
+    # Тест ошибки "файл поврежден"
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_csv('../src/items3.csv')
