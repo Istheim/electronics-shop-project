@@ -68,7 +68,7 @@ def test_invalid_addition():
         assert str(e) == "Нельзя сложить Phone или Item с экземплярами других классов."
 
 
-def test_instantiate_from_csv():
+def test_instantiate_csv():
     # Проверка ошибок
     # Тест ошибки "Нет файла"
     with pytest.raises(CSVNotFoundError):

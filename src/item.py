@@ -45,22 +45,20 @@ class Item:
             raise Exception('Длина наименования товара превышает 10 символов')
 
     @classmethod
-    def instantiate_from_csv(cls):
-        """
-        Класс-метод для инициализации экземпляров класса Item данными из файла src/items.csv.
-        """
+    def instantiate_csv(cls, filename) -> None:
+        """Вызываем классы из файла"""
+
         try:
             cls.all.clear()
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            file_path = os.path.join(current_dir, 'items.csv')
-            with open(file_path, newline='', encoding="utf-8") as csvfile:
+
+            with open(filename, newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    item = cls(row['name'], row['price'], row['quantity'])
+                    cls(row['name'], row['price'], row['quantity'])
 
                     if not row['name'] or not row['price'] or not row['quantity']:
                         raise InstantiateCSVError
-            # Обработка ошибки файл не найден
+        # Обработка ошибки файл не найден
         except FileNotFoundError:
             raise CSVNotFoundError
         # Обработка ошибки файл поврежден
