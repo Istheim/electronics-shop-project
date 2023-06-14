@@ -2,6 +2,20 @@ import csv
 import os
 
 
+class InstantiateCSVError(Exception):
+    """
+    Класс ошибки при инициализации из CSV.
+    """
+    pass
+
+
+class CSVNotFoundError(Exception):
+    """
+    Класс ошибки при отсутствии файла CSV.
+    """
+    pass
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -26,7 +40,6 @@ class Item:
         if not isinstance(other, Item):
             raise ValueError('Нельзя складывать')
         return int(self.quantity) + int(other.quantity)
-
 
     @property
     def name(self):
@@ -54,10 +67,10 @@ class Item:
             with open(filename, newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    cls(row['name'], row['price'], row['quantity'])
-
                     if not row['name'] or not row['price'] or not row['quantity']:
                         raise InstantiateCSVError
+
+                    cls(row['name'], row['price'], row['quantity'])
         # Обработка ошибки файл не найден
         except FileNotFoundError:
             raise CSVNotFoundError
@@ -67,18 +80,17 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls) -> None:
-
-        '''
+        """
         класс-метод, инициализирующий экземпляры класса `Item`
         данными из файла _src/items.csv
-        '''
+        """
         address_file = '../src/items.csv'
         try:
             cls.instantiate_csv(address_file)
         except CSVNotFoundError as ex:
-            print(ex.message)
+            print(ex)
         except InstantiateCSVError as ex:
-            print(ex.message)
+            print(ex)
 
     @staticmethod
     def string_to_number(string):
@@ -117,4 +129,3 @@ class Item:
         Возвращает строковое представление объекта класса Item.
         """
         return self.name
-
