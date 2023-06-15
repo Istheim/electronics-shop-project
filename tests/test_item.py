@@ -2,6 +2,7 @@
 import pytest
 from src.item import Item
 from src.phone import Phone
+from src.item import Item, CSVNotFoundError, InstantiateCSVError
 
 
 def test_calculate_total_price():
@@ -65,7 +66,7 @@ def test_invalid_addition():
     try:
         item1 + other_obj
     except ValueError as e:
-        assert str(e) == "Нельзя сложить Phone или Item с экземплярами других классов."
+        assert str(e) == "Нельзя складывать"
 
 
 def test_instantiate_csv():

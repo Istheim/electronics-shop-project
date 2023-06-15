@@ -3,17 +3,13 @@ import os
 
 
 class InstantiateCSVError(Exception):
-    """
-    Класс ошибки при инициализации из CSV.
-    """
-    pass
+    def __init__(self):
+        self.message = 'Файл item.csv поврежден'
 
 
-class CSVNotFoundError(Exception):
-    """
-    Класс ошибки при отсутствии файла CSV.
-    """
-    pass
+class CSVNotFoundError(InstantiateCSVError):
+    def __init__(self):
+        self.message = 'Файл отсутствует'
 
 
 class Item:
